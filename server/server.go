@@ -26,5 +26,5 @@ func NewServer() *Server {
 
 func (s *Server) Start() {
 	log.Printf("Server starting in port: %s", s.listenAddr)
-	log.Fatal(http.ListenAndServe(s.listenAddr, s.Router.Mux))
+	log.Fatal(http.ListenAndServe(s.listenAddr, s.Router))
 }

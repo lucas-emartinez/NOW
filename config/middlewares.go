@@ -1,26 +1,38 @@
 package config
 
 import (
-	"NOW/logic/Entities"
-	"encoding/json"
-	"fmt"
+	"log"
 	"net/http"
+	"time"
 )
 
 type Middleware func(handler http.HandlerFunc) http.HandlerFunc
 
-func VerifyNameMiddleware(next http.HandlerFunc) http.HandlerFunc {
-
+// LoggingMiddleware logs the incoming HTTP request.
+func LoggingMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		// Decode the request body into the user struct
-		var body Entities.User
-		err := json.NewDecoder(r.Body).Decode(&body)
-		if err != nil {
-			fmt.Println(err)
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
-		}
-		fmt.Println(err)
+		// Start timer
+		startTime := time.Now()
+
+		// Process request
 		next(w, r)
+
+		// Stop timer
+		elapsedTime := time.Since(startTime)
+
+		// Log request details
+		const (
+			colorReset  = "\033[0m"
+			colorRed    = "\033[31m"
+			colorGreen  = "\033[32m"
+			colorYellow = "\033[33m"
+		)
+		log.Printf(
+			"[%s%s%s] %s%s%s %s%s%s %s",
+			colorYellow, r.Method, colorReset,
+			colorGreen, r.RequestURI, colorReset,
+			colorRed, r.RemoteAddr, colorReset,
+			elapsedTime,
+		)
 	}
 }

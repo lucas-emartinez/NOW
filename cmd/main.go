@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-
 	// Inicializa la base de datos
 	database, err := db.NewDatabase()
 	if err != nil {
