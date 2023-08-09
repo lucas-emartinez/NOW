@@ -1,10 +1,10 @@
 package main
 
 import (
-	"NOW/rest_service/db"
-	"NOW/rest_service/router"
-	"NOW/rest_service/server"
-	"NOW/rest_service/setup"
+	"NOW/db"
+	"NOW/router"
+	"NOW/server"
+	"NOW/setup"
 )
 
 func main() {

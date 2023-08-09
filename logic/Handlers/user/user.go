@@ -1,12 +1,11 @@
 package user
 
 import (
-	"NOW/rest_service/logic/Repositories/user"
-	dbEntity "NOW/rest_service/logic/entities/db"
+	"NOW/logic/Repositories/user"
+	dbEntity "NOW/logic/entities/db"
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -103,7 +102,6 @@ func (h *UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 
 	// fetch the existing user from the database
 	existingUser, err := h.repo.GetByDNI(ctx, dni)
-	fmt.Println(existingUser)
 	if err != nil {
 		recover()
 		http.Error(w, err.Error(), http.StatusNotFound)

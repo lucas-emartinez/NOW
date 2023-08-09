@@ -1,8 +1,8 @@
 package router
 
 import (
-	"NOW/rest_service/config"
-	RoutingEntity "NOW/rest_service/logic/entities/routing"
+	"NOW/config"
+	"NOW/logic/entities/routing"
 	"context"
 	"net/http"
 	"regexp"
@@ -10,14 +10,14 @@ import (
 )
 
 type RouterImplementation struct {
-	Routes []RoutingEntity.Route
+	Routes []routing.Route
 }
 
 func NewRouter() Router {
-	return &RouterImplementation{Routes: []RoutingEntity.Route{}}
+	return &RouterImplementation{Routes: []routing.Route{}}
 }
 
-func (r *RouterImplementation) AddRoute(route RoutingEntity.Route) {
+func (r *RouterImplementation) AddRoute(route routing.Route) {
 	r.Routes = append(r.Routes, route)
 }
 func (r *RouterImplementation) ServeHTTP(w http.ResponseWriter, req *http.Request) {
@@ -38,10 +38,10 @@ func (r *RouterImplementation) RouteHandler() http.HandlerFunc {
 		http.NotFound(w, req)
 	}
 }
-func (r *RouterImplementation) AddSubRouter(subRouter RoutingEntity.SubRouter) {
+func (r *RouterImplementation) AddSubRouter(subRouter routing.SubRouter) {
 	for _, subRoute := range subRouter.Routes {
 		pattern, params := CreateRegexPattern(subRouter.Prefix + subRoute.Pattern)
-		r.Routes = append(r.Routes, RoutingEntity.Route{
+		r.Routes = append(r.Routes, routing.Route{
 			Method:     subRoute.Method,
 			Pattern:    pattern,
 			Params:     params,
@@ -64,7 +64,7 @@ func CreateRegexPattern(pattern string) (string, []string) {
 
 	return strings.Join(parts, "/") + "$", params
 }
-func addParamsToContext(req *http.Request, route RoutingEntity.Route, matches []string) *http.Request {
+func addParamsToContext(req *http.Request, route routing.Route, matches []string) *http.Request {
 	params := make(map[string]string, len(matches))
 	for i, match := range matches {
 		params[route.Params[i]] = match

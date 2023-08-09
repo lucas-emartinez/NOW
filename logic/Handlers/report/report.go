@@ -1,9 +1,8 @@
 package report
 
 import (
-	"NOW/rest_service/logic/Repositories/report"
-	dbEntity "NOW/rest_service/logic/entities/db"
-	"NOW/rest_service/messager"
+	"NOW/logic/Repositories/report"
+	dbEntity "NOW/logic/entities/db"
 	"context"
 	"encoding/json"
 	"log"
@@ -24,33 +23,20 @@ func (h *ReportHandler) CreateReport(w http.ResponseWriter, r *http.Request) {
 	defer cancel()
 
 	var report *dbEntity.Report
-	log.Println(report)
+
 	err := json.NewDecoder(r.Body).Decode(&report)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+	log.Println(err)
 
 	err = h.repo.CreateReport(ctx, report)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	log.Println(report)
-	message := messager.WebsocketMessage{
-		Type: "ReportCreated",
-		Payload: map[string]interface{}{
-			"reportID":    report.ID,
-			"userID":      report.UserID,
-			"description": report.Description,
-			"severity":    report.Severity,
-			"coordinates": report.Coordinates,
-			"date":        report.Date,
-			"timestamp":   report.Timestamp,
-		},
-	}
 
-	err = messager.SendMessageToWebSocket(message)
 	if err != nil {
 		http.Error(w, "No pudimos retransmitir la denuncia", http.StatusInternalServerError)
 		return

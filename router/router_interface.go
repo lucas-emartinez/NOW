@@ -1,13 +1,13 @@
 package router
 
 import (
-	RoutingEntity "NOW/rest_service/logic/entities/routing"
+	"NOW/logic/entities/routing"
 	"net/http"
 )
 
 type Router interface {
 	ServeHTTP(w http.ResponseWriter, req *http.Request)
-	AddRoute(route RoutingEntity.Route)
+	AddRoute(route routing.Route)
 	RouteHandler() http.HandlerFunc
-	AddSubRouter(subRouter RoutingEntity.SubRouter)
+	AddSubRouter(subRouter routing.SubRouter)
 }

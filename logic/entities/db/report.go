@@ -7,7 +7,7 @@ type Report struct {
 	UserID      int // FK
 	Description string
 	Coordinates string
-	Severity    int
+	Severity    string
 	Date        time.Time
 	Timestamp   time.Time
 }

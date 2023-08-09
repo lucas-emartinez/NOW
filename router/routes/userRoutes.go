@@ -1,16 +1,16 @@
 package routes
 
 import (
-	"NOW/rest_service/config"
-	"NOW/rest_service/logic/Handlers/user"
-	RoutingEntity "NOW/rest_service/logic/entities/routing"
+	"NOW/config"
+	"NOW/logic/Handlers/user"
+	"NOW/logic/entities/routing"
 	"net/http"
 )
 
-func GetUserRoutes(prefix string, userHandler user.UserHandler) RoutingEntity.SubRouter {
-	subRouter := RoutingEntity.SubRouter{
+func GetUserRoutes(prefix string, userHandler user.UserHandler) routing.SubRouter {
+	subRouter := routing.SubRouter{
 		Prefix: prefix,
-		Routes: []RoutingEntity.Route{
+		Routes: []routing.Route{
 			{
 				Method:     http.MethodPost,
 				Pattern:    "/register",

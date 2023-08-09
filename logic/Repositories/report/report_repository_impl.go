@@ -1,8 +1,8 @@
 package report
 
 import (
-	"NOW/rest_service/db"
-	dbEntity "NOW/rest_service/logic/entities/db"
+	"NOW/db"
+	dbEntity "NOW/logic/entities/db"
 	"context"
 	"strings"
 )

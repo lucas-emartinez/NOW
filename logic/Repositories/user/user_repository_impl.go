@@ -1,11 +1,10 @@
 package Repositories
 
 import (
-	"NOW/rest_service/db"
-	dbEntity "NOW/rest_service/logic/entities/db"
+	"NOW/db"
+	dbEntity "NOW/logic/entities/db"
 	"context"
 	"database/sql"
-	"fmt"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -34,7 +33,6 @@ func (r *UserRepositoryImplementation) GetByDNI(ctx context.Context, dni int) (*
 }
 func (r *UserRepositoryImplementation) Update(ctx context.Context, user *dbEntity.User) error {
 
-	fmt.Println(user)
 	// Implementa la lógica para actualizar un usuario existente en la base de datos.
 	sqlStatement := `
 		UPDATE User

@@ -1,7 +1,7 @@
 package routing
 
 import (
-	"NOW/rest_service/config"
+	"NOW/config"
 	"net/http"
 )
 

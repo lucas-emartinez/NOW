@@ -1,13 +1,13 @@
 package setup
 
 import (
-	"NOW/rest_service/db"
-	"NOW/rest_service/logic/Handlers/report"
-	"NOW/rest_service/logic/Handlers/user"
-	Report "NOW/rest_service/logic/Repositories/report"
-	User "NOW/rest_service/logic/Repositories/user"
-	"NOW/rest_service/router"
-	userRoutes "NOW/rest_service/router/routes"
+	"NOW/db"
+	"NOW/logic/Handlers/report"
+	"NOW/logic/Handlers/user"
+	Report "NOW/logic/Repositories/report"
+	User "NOW/logic/Repositories/user"
+	"NOW/router"
+	"NOW/router/routes"
 )
 
 func Routes(router router.Router, database *db.Database) {
@@ -18,8 +18,8 @@ func Routes(router router.Router, database *db.Database) {
 	userHandler := user.NewUserHandler(userRepo)
 	reportHandler := report.NewReportHandler(reportRepo)
 
-	userSubRouter := userRoutes.GetUserRoutes("/user", *userHandler)
-	reportSubRouter := userRoutes.GetReportRoutes("/report", *reportHandler)
+	userSubRouter := routes.GetUserRoutes("/user", *userHandler)
+	reportSubRouter := routes.GetReportRoutes("/report", *reportHandler)
 
 	// Añade el SubRouter al router
 	router.AddSubRouter(userSubRouter)

@@ -10,8 +10,13 @@ type Database struct {
 }
 
 func NewDatabase() (*Database, error) {
-	db, err := sql.Open("mysql", "root:Albaricoque321@tcp(localhost:3307)/Now")
+	db, err := sql.Open("mysql", "root:Albaricoque321@tcp(localhost:3306)/Now")
 
+	if err != nil {
+		panic(err)
+	}
+
+	err = db.Ping()
 	if err != nil {
 		panic(err)
 	}

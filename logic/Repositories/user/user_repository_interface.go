@@ -1,7 +1,7 @@
 package Repositories
 
 import (
-	dbEntity "NOW/rest_service/logic/entities/db"
+	dbEntity "NOW/logic/entities/db"
 	"context"
 )
 

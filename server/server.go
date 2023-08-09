@@ -1,8 +1,8 @@
 package server
 
 import (
-	"NOW/rest_service/db"
-	"NOW/rest_service/router"
+	"NOW/db"
+	"NOW/router"
 	"fmt"
 	"log"
 	"net/http"

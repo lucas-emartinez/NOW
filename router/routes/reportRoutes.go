@@ -1,16 +1,16 @@
 package routes
 
 import (
-	"NOW/rest_service/config"
-	"NOW/rest_service/logic/Handlers/report"
-	RoutingEntity "NOW/rest_service/logic/entities/routing"
+	"NOW/config"
+	"NOW/logic/Handlers/report"
+	"NOW/logic/entities/routing"
 	"net/http"
 )
 
-func GetReportRoutes(prefix string, reportHandler report.ReportHandler) RoutingEntity.SubRouter {
-	subRouter := RoutingEntity.SubRouter{
+func GetReportRoutes(prefix string, reportHandler report.ReportHandler) routing.SubRouter {
+	subRouter := routing.SubRouter{
 		Prefix: prefix,
-		Routes: []RoutingEntity.Route{
+		Routes: []routing.Route{
 			{
 				Method:     http.MethodPost,
 				Pattern:    "/create",
